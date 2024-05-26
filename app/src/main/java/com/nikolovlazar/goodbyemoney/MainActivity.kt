@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
         val backStackEntry by navController.currentBackStackEntryAsState()
 
         showBottomBar = when (backStackEntry?.destination?.route) {
-          "settings/categories" -> false
+          "settings/categories", "login", "register" -> false
           else -> true
         }
 
@@ -103,8 +103,26 @@ class MainActivity : ComponentActivity() {
           content = { innerPadding ->
             NavHost(
               navController = navController,
-              startDestination = "expenses"
+              startDestination = "login"
             ) {
+              composable("login") {
+                Surface(
+                  modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+                ) {
+                  LoginScreen(navController)
+                }
+              }
+              composable("register") {
+                Surface(
+                  modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+                ) {
+                  RegisterScreen(navController)
+                }
+              }
               composable("expenses") {
                 Surface(
                   modifier = Modifier
